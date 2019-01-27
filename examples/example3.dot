@@ -1,0 +1,13 @@
+digraph G {
+    graph [overlap="false"]
+    "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_fast.c" [color=red, label="zstd_fast.c", style=solid];
+    "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_compress_internal.h" [color=gray, label="zstd_compress_internal.h", style=solid];
+    "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_compress_internal.h_include_count" [color=gray, label="14+", style=dashed];
+    "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_fast.h" [color=gray, label="zstd_fast.h", style=solid];
+    "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_fast.h_include_count" [color=gray, label="15+", style=dashed];
+    "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_fast.c" -> "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_fast.h" [style=solid];
+    "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_fast.c" -> "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_compress_internal.h" [style=solid];
+    "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_compress_internal.h" -> "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_compress_internal.h_include_count" [style=dashed];
+    "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_fast.h" -> "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_fast.h_include_count" [style=dashed];
+    "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_fast.h" -> "/Users/quint/Downloads/zstd-dev/lib/compress/zstd_compress_internal.h" [style=solid];
+}

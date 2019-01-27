@@ -1,6 +1,10 @@
 # cxx-dependencies
 Various scripts to see the dependencies between Cxx source files.
 
+Requirements:
+1. python 2
+2. ponyORM
+
 ```
 $ python main.py -i zstd-dev/lib/common/ -r zstd-dev -n "example1" -o examples -d 999
 ```

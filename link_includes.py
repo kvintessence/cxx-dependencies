@@ -9,14 +9,14 @@ from pony import orm as pony
 
 
 @pony.db_session
-def linkIncludes():
+def linkIncludes(systemHeaders=False):
     for sourceFile in SourceFile.select():
         for include in sourceFile.includes:
             # try relative path first
             relativePath = "/".join(sourceFile.fullPath.split("/")[:-1] + [include.path])
 
             if os.path.isfile(relativePath):
-                linkedSourceFile = spawnSourceFile(relativePath)
+                linkedSourceFile = spawnSourceFile(relativePath, systemHeaders=systemHeaders)
                 include.link = linkedSourceFile
                 continue
 

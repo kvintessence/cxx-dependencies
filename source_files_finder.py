@@ -10,7 +10,7 @@ from pony import orm as pony
 
 
 @pony.db_session
-def spawnSourceFile(filePath, isTarget=False):
+def spawnSourceFile(filePath, isTarget=False, systemHeaders=False):
     fullPath = os.path.abspath(filePath)
 
     if SourceFile.get(fullPath=fullPath):
@@ -23,7 +23,10 @@ def spawnSourceFile(filePath, isTarget=False):
 
     with open(filePath) as file:
         for line in file:
-            result = re.search(r'[#@](?:include|import)\s*[\"\'](.+)[\"\']', line)
+            if systemHeaders:
+                result = re.search(r'[#@](?:include|import)\s*[\"\'<](.+)[\"\'>]', line)
+            else:
+                result = re.search(r'[#@](?:include|import)\s*[\"\'](.+)[\"\']', line)
 
             if result is not None:
                 importPath = result.group(1)
@@ -37,7 +40,7 @@ def spawnSourceFile(filePath, isTarget=False):
     return sourceFile
 
 
-def spawnSourceDirectory(dirPath, isTarget=False):
+def spawnSourceDirectory(dirPath, isTarget=False, systemHeaders=False):
     postfixes = (".hpp", ".h")
 
     if isTarget:
@@ -46,17 +49,17 @@ def spawnSourceDirectory(dirPath, isTarget=False):
     for root, subFolders, files in os.walk(dirPath):
         for fileName in files:
             if fileName.endswith(postfixes):
-                spawnSourceFile(os.path.join(root, fileName), isTarget)
+                spawnSourceFile(os.path.join(root, fileName), isTarget, systemHeaders)
 
 
-def spawnSourceFiles(entries, isTarget=False):
+def spawnSourceFiles(entries, isTarget=False, systemHeaders=False):
     if not entries:
         return
 
     for path in entries:
         if os.path.isfile(path):
-            spawnSourceFile(path, isTarget)
+            spawnSourceFile(path, isTarget, systemHeaders)
         elif os.path.isdir(path):
-            spawnSourceDirectory(path, isTarget)
+            spawnSourceDirectory(path, isTarget, systemHeaders)
         else:
             eprint("Error: couldn't process path '%s'." % path)

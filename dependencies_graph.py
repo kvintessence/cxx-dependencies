@@ -26,9 +26,7 @@ def spawnOneGraphNode(identifier, name, color):
 def spawnGraphNodesRecursively(sourceFile, depth):
     node = spawnOneGraphNode(sourceFile.fullPath, sourceFile.fileName, 'gray')
 
-    if node.processed:
-        return
-
+    shouldRecurse = not node.processed
     node.processed = True
 
     for include in sourceFile.includes:
@@ -39,7 +37,7 @@ def spawnGraphNodesRecursively(sourceFile, depth):
                 anotherNode = spawnOneGraphNode(include.link.fullPath, include.link.fileName, 'gray')
                 node.linksTo.add(anotherNode)
 
-                if depth > 0:
+                if depth > 0 and shouldRecurse:
                     newDepth = depth - (0 if include.link.isTarget else 1)
                     spawnGraphNodesRecursively(include.link, newDepth)
 

@@ -15,6 +15,7 @@ class SourceFile(db.Entity):
     isHeader = pony.Required(bool)
 
     dependenciesCount = pony.Optional(int)
+    includersCount = pony.Optional(int)
 
 
 class Include(db.Entity):

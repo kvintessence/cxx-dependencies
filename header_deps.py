@@ -31,9 +31,28 @@ def getDependencies(sourceFile, bag=None):
 
 
 @pony.db_session
+def getIncluders(sourceFile, bag=None):
+    bag = bag or set()
+
+    bag.add(sourceFile.fullPath)
+
+    for include in sourceFile.includedBy:
+        if include.owner.fullPath not in bag:
+            bag |= getIncluders(include.owner, bag)
+
+    return bag
+
+
+@pony.db_session
 def recalculateDependencies(allSourceFiles=False):
     for sourceFile in SourceFile.select(lambda f: f.isTarget or allSourceFiles):
         sourceFile.dependenciesCount = len(getDependencies(sourceFile)) - 1
+
+
+@pony.db_session
+def recalculateIncluders(allSourceFiles=False):
+    for sourceFile in SourceFile.select(lambda f: f.isTarget or allSourceFiles):
+        sourceFile.includersCount = len(getIncluders(sourceFile)) - 1
 
 
 @pony.db_session

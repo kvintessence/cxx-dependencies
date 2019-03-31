@@ -18,6 +18,7 @@ if __name__ == "__main__":
     parser.add_argument('-sh', '--system-headers', dest='system_headers', action='store_true', help="Include system headers.")
     parser.add_argument('-l', '--list', dest='list', action='store_true', help="Also print all included headers.")
     parser.set_defaults(system_headers=False)
+    parser.set_defaults(list=False)
     args = parser.parse_args()
 
     spawnSourceFiles(args.input, isTarget=True, systemHeaders=args.system_headers)

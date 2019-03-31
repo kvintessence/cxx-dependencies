@@ -24,9 +24,9 @@ def spawnSourceFile(filePath, isTarget=False, systemHeaders=False):
     with open(filePath) as file:
         for line in file:
             if systemHeaders:
-                result = re.search(r'[#@](?:include|import)\s*[\"\'<](.+)[\"\'>]', line)
+                result = re.search(r'[#@]\s*(?:include|import)\s*[\"\'<](.+)[\"\'>]', line)
             else:
-                result = re.search(r'[#@](?:include|import)\s*[\"\'](.+)[\"\']', line)
+                result = re.search(r'[#@]\s*(?:include|import)\s*[\"\'](.+)[\"\']', line)
 
             if result is not None:
                 importPath = result.group(1)
@@ -41,10 +41,7 @@ def spawnSourceFile(filePath, isTarget=False, systemHeaders=False):
 
 
 def spawnSourceDirectory(dirPath, isTarget=False, systemHeaders=False):
-    postfixes = (".hpp", ".h")
-
-    if isTarget:
-        postfixes = (".cpp", ".hpp", ".c", ".h", ".m", ".mm")
+    postfixes = (".cpp", ".hpp", ".c", ".h", ".m", ".mm")
 
     for root, subFolders, files in os.walk(dirPath):
         for fileName in files:

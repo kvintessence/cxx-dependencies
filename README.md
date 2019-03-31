@@ -30,7 +30,7 @@ $ python graph.py -i zstd-dev/lib/compress/zstd_fast.c -r zstd-dev -n "example3"
 
 # `includes.py`
 
-Print the amount of headers that input files include.
+How much headers does input file include in total (recursively)?
 
 ```
 $ includes.py --system-headers -i zstd-dev/lib/decompress -r zstd-dev/lib
@@ -47,6 +47,8 @@ $ includes.py --system-headers -i zstd-dev/lib/decompress -r zstd-dev/lib
    1 | /Users/quint/Downloads/zstd-dev/lib/decompress/zstd_ddict.h
 -----+---------------------------------------------------------------------------
 ```
+
+A full list of headers the input file includes (recursively).
 
 ```
 $ includes.py -i zstd-dev/lib/decompress/zstd_decompress.c -r zstd-dev/lib --list
@@ -85,7 +87,7 @@ $ includes.py -i zstd-dev/lib/decompress/zstd_decompress.c -r zstd-dev/lib --lis
 
 # `included_by.py`
 
-Print files that include input headers.
+How many files do include some particular header (recursively)?
 
 ```
 $ included_by.py -i zstd-dev/lib
@@ -132,6 +134,8 @@ $ included_by.py -i zstd-dev/lib
    2 | /Users/quint/Downloads/zstd-dev/lib/legacy/zstd_legacy.h
 -----+---------------------------------------------------------------------------
 ```
+
+Which files do include some particular header (recursively)?
 
 ```
 $ included_by.py -i zstd-dev/lib/common/threading.h -r zstd-dev/lib --list

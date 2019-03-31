@@ -9,7 +9,9 @@ Requirements:
 $ python -m pip install pony
 ```
 
-1. `graph.py` - draw dependencies graphs
+# `graph.py`
+
+Draw dependencies graphs.
 
 ```
 $ python graph.py -i zstd-dev/lib/common/ -r zstd-dev -n "example1" -o examples -d 999
@@ -26,7 +28,9 @@ $ python graph.py -i zstd-dev/lib/compress/zstd_fast.c -r zstd-dev -n "example3"
 ```
 ![Example3](examples/example3.png)
 
-2. `includes.py` - print the amount of headers input files include
+# `includes.py`
+
+Print the amount of headers that input files include.
 
 ```
 $ includes.py --system-headers -i zstd-dev/lib/decompress -r zstd-dev/lib
@@ -79,7 +83,9 @@ $ includes.py -i zstd-dev/lib/decompress/zstd_decompress.c -r zstd-dev/lib --lis
 -----+------------------------------------------------------------------
 ```
 
-3. `included_by.py` - print the amount of who include input headers
+# `included_by.py`
+
+Print files that include input headers.
 
 ```
 $ included_by.py -i zstd-dev/lib

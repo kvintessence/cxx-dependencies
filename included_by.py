@@ -51,8 +51,14 @@ if __name__ == "__main__":
             includers.remove(sourceFile.fullPath)
 
             if args.list and len(includers) > 0:
-                for includer in includers:
-                    print('     | %s' % includer)
+                includersInfo = [(SourceFile.get(fullPath=includer).includersCount, includer) for includer in includers]
+                includersInfo = sorted(includersInfo, reverse=True, key=lambda x: x[0])
+
+                for count, includer in includersInfo:
+                    if count > 0:
+                        print('%4d | %s' % (count, includer))
+                    else:
+                        print('     | %s' % (includer))
 
                 print(tableLine)
                 print('')
